@@ -3,12 +3,18 @@
 #
 # Makefile - life is too short for running commands manually
 
-OBJECTS = main.o
+UNITS = kernel.ppu
+OBJECTS = kernel.o main.o
 
 CC=i386-elf-gcc
 LD=i386-elf-ld
+PPC=fpc
+PPCFLAGS=-Tlinux -Pi386 -O3
 
 .PHONY: qemu clean
+
+%.o: %.pas
+	$(PPC) $(PPCFLAGS) $<
 
 kernel.elf: kernel.ld $(OBJECTS)
 	$(LD) -T kernel.ld $(OBJECTS)
@@ -17,4 +23,4 @@ qemu: kernel.elf
 	qemu-system-i386 -kernel kernel.elf
 
 clean:
-	rm -rf kernel.elf $(OBJECTS)
+	rm -rf kernel.elf $(UNITS) $(OBJECTS)

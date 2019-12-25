@@ -20,15 +20,7 @@ bootHead: /* and another boot to her wimpy husband Hank */
 /* The binary ELF file loaded by the bootloader starts running code HERE. */
 .global bootMain
 bootMain:
-	movl $0xb8000, %ebx
-	xorl %esi, %esi
-.bootLoop:
-	movl %eax, (%esi, %ebx)
-	addl $4, %esi
-	cmpl $4000, %esi
-	je bootPostMain
-	addl $0x12341234, %eax
-	jmp .bootLoop
+	call kernelMain
 
 /* Infinite loop once kmain is done. */
 bootPostMain:
