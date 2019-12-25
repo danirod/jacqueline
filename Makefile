@@ -3,8 +3,8 @@
 #
 # Makefile - life is too short for running commands manually
 
-UNITS = kernel.ppu
-OBJECTS = kernel.o main.o
+UNITS = console.ppu kernel.ppu
+OBJECTS = console.o kernel.o main.o
 
 CC=i386-elf-gcc
 LD=i386-elf-ld

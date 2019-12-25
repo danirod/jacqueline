@@ -9,20 +9,17 @@ unit kernel;
 
 interface
 
+uses console;
+
 procedure kernelMain();
 
 implementation
 
 procedure kernelMain(); [public name 'kernelMain'];
-var
-	i: integer;
-	value: byte = $cf;
-	screenbuf: pchar = pchar($b8000);
 begin
-	for i := 0 to 80 * 25 * 2 do begin
-		screenbuf[i] := char(value);
-		value := value + $be;
-	end
+	consoleClearDisplay();
+	consoleSetAttributes(White, Black);
+	consolePutString('Hello world');
 end;
 
 end.
