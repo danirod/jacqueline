@@ -18,8 +18,10 @@ bootHead: /* and another boot to her wimpy husband Hank */
 .int MULTIBOOT_CHECKSUM
 
 /* The binary ELF file loaded by the bootloader starts running code HERE. */
+#define STACK_SIZE 0x4000
 .global bootMain
 bootMain:
+	movl $(Stack + STACK_SIZE), %esp
 	call kernelMain
 
 /* Infinite loop once kmain is done. */
@@ -28,3 +30,6 @@ bootPostMain:
 	hlt
 	jmp bootPostMain
 
+.bss
+.align 4
+	.lcomm Stack, STACK_SIZE
